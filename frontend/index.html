@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TO DO APPLICATION</title>
+    <link rel="stylesheet" href="style.css"
+</head>
+<body>
+    <main>
+        <div class="input">
+
+        <div class="TitleContainer">
+        <label>Tittle:</label>
+        <input type="text"id= "title">
+    </div>
+        <div class="DescContainer">
+        <label>Description:</label>
+        <input type="text"id="desc">
+    </div>
+
+    <button id="clickbutton">Add ToDo</button>
+    </div>
+
+    <div class="listTodo">
+        <h4 class="headingTodo">Available Todo's</h4>
+        <div class="SampleTodo">
+            <span class="title">Title : Title of todo</span>
+            <span class="desc">Desc : Description of Todo</span>
+        </div>
+        <!-- <div class="SampleTodo">
+            <span class="title">Title : Title of todo</span>
+            <span class="desc">Desc : Description of Todo</span>
+        </div>
+        <div class="SampleTodo">
+            <span class="title">Title : Title of todo</span>
+            <span class="desc">Desc : Description of Todo</span>
+        </div> -->
+
+    </div>
+    </main>
+
+</body>
+<script>
+    const btn=document.getElementById("clickbutton");
+    function GetTodo(){
+        fetch("http://localhost:8000/Todo",{
+            method:"GET"
+        }).then((res)=>{
+            return res.json();
+        }).then((data)=>{
+            ListToDo(data,ToDo);
+        })
+        return null;
+    }
+    function ListToDo(Todos){
+        console.log("Todos length:",Todos.length);
+        const listContainer=document.querySelector('.listTodo');
+        listContainer.innerHTML=''
+
+        Todos.forEach(item=>{
+            let todoContainer = document.createElement('div');
+
+            todoContainer.classList.add("SampleTodo");
+
+            let titlespan=document.createElement('span');
+                titlespan.classList.add("title");
+            let descspan=document.createElement('span');
+                descspan.classList.add("description");
+
+                titlespan.textContent=item.title;
+                todoContainer.append(titlespan);
+
+                descspan.textContent=item.desc;
+                todoContainer.append(descspan);
+                
+                listContainer.append(todoContainer);
+
+        })
+    }
+
+    GetTodo();
+    btn.addEventListener('click',()=>{
+        const title=document.getElementById("title").value;
+        const description = document.getElementById("desc").value;
+        //api call//
+        fetch("http://localhost:8000/Todo",{
+            method:"post",
+            headers:{
+                "content-type":"application/json"
+            },
+            body:JSON.stringify({
+                title:title,
+                desc:description
+            })
+        }).then((res)=>{
+            return res.json();
+        }).then((data)=>{
+            console.log("data is", data);
+        }).catch((err)=>{
+            console.log("erroe occred",err);
+        })
+
+    })
+</script>
+</html>

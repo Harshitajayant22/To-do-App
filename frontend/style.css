@@ -1,0 +1,48 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing:  border-box;
+}
+main{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100vw;
+}
+.headingTodo{
+    text-align: center;
+}
+.input{
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    border: 1px solid black;
+    padding: 2rem;
+    background-color: aqua;
+    border-radius: 0cap;
+}
+.DescContainer{
+    display: flex;
+    column-gap: 15px;
+}
+.TitleContainer{
+    display: flex;
+    gap: 60px;
+}
+
+.listTodo{
+    display: flex;
+    flex-direction: column;
+    gap:2rem;
+    margin-top: 50px;
+    padding: 1rem;
+    border: 2px solid red;
+}
+.SampleTodo{
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    border: 1px solid black;
+}
